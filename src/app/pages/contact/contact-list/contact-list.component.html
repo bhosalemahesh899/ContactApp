@@ -1,28 +1,69 @@
-<div class="container mt-5">
-    <h2>Contact List</h2>
-    <button routerLink="/add-contact" class="btn btn-primary mb-3">Add Contact</button>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Email</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let contact of contacts">
-          <td>{{ contact.id }}</td>
-          <td>{{ contact.firstName }}</td>
-          <td>{{ contact.lastName }}</td>
-          <td>{{ contact.email }}</td>
-          <td>
-            <button routerLink="/edit-contact/{{contact.id}}" class="btn btn-warning btn-sm">Edit</button>
-            <button (click)="deleteContact(contact.id)" class="btn btn-danger btn-sm">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+<div class="container mt-4">
+  <mat-toolbar color="primary">
+    <span class="spacer"></span>
+    <button mat-raised-button color="accent" (click)="openCreateModal()">
+      <mat-icon>add</mat-icon> Add Contact
+    </button>
+  </mat-toolbar>
+
+  <div class="search-container mt-3">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Filter contacts">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
   </div>
-  
+
+  <!--<div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>-->
+
+  <div class="table-container">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+        <td mat-cell *matCellDef="let contact">{{ contact.id }}</td>
+      </ng-container>
+
+      <!-- First Name Column -->
+      <ng-container matColumnDef="firstName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+        <td mat-cell *matCellDef="let contact">{{ contact.firstName }}</td>
+      </ng-container>
+
+      <!-- Last Name Column -->
+      <ng-container matColumnDef="lastName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+        <td mat-cell *matCellDef="let contact">{{ contact.lastName }}</td>
+      </ng-container>
+
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+        <td mat-cell *matCellDef="let contact">{{ contact.email }}</td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let contact">
+          <button mat-icon-button color="primary" (click)="openEditModal(contact)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteContact(contact.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- Header and Row Declarations -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>
