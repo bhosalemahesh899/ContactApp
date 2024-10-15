@@ -9,6 +9,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ContactModelComponent } from '../contact-model/contact-model.component';
 //import { ContactModalComponent } from '../contact-modal/contact-modal.component';
 
 @Component({
@@ -51,7 +52,7 @@ export class ContactListComponent implements OnInit {
   }
 
   openCreateModal(): void {
-    const dialogRef = this.dialog.open(ContactModalComponent, {
+    const dialogRef = this.dialog.open(ContactModelComponent, {
       width: '400px',
       panelClass: 'center-dialog',
       data: { isEdit: false }
@@ -66,7 +67,7 @@ export class ContactListComponent implements OnInit {
   }
 
   openEditModal(contact: Contact): void {
-    const dialogRef = this.dialog.open(ContactModalComponent, {
+    const dialogRef = this.dialog.open(ContactModelComponent, {
       width: '400px',
       data: { isEdit: true, contact: contact }
     });
