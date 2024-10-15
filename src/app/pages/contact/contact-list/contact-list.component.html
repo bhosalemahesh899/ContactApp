@@ -1,0 +1,28 @@
+<div class="container mt-5">
+    <h2>Contact List</h2>
+    <button routerLink="/add-contact" class="btn btn-primary mb-3">Add Contact</button>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contact of contacts">
+          <td>{{ contact.id }}</td>
+          <td>{{ contact.firstName }}</td>
+          <td>{{ contact.lastName }}</td>
+          <td>{{ contact.email }}</td>
+          <td>
+            <button routerLink="/edit-contact/{{contact.id}}" class="btn btn-warning btn-sm">Edit</button>
+            <button (click)="deleteContact(contact.id)" class="btn btn-danger btn-sm">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
